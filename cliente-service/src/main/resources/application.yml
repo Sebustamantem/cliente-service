@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: cliente-service
+
+  config:
+    import: "optional:configserver:https://config-server-bph7.onrender.com"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: https://eureka-server-4ipn.onrender.com/eureka/
