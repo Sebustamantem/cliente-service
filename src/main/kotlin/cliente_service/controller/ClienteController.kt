@@ -9,9 +9,25 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin(origins = ["*"]) // permite llamadas desde Android
 class ClienteController(private val service: ClienteService) {
 
+    // 🟢 Listar todos los clientes
     @GetMapping
     fun listar(): List<Cliente> = service.listar()
 
+    // 🟣 Obtener un cliente por ID
+    @GetMapping("/{id}")
+    fun obtenerPorId(@PathVariable id: Long): Cliente? = service.obtenerPorId(id)
+
+    // 🟢 Crear nuevo cliente
     @PostMapping
     fun crear(@RequestBody cliente: Cliente): Cliente = service.crear(cliente)
+
+    // 🟡 Actualizar un cliente existente
+    @PutMapping("/{id}")
+    fun actualizar(@PathVariable id: Long, @RequestBody cliente: Cliente): Cliente? =
+        service.actualizar(id, cliente)
+
+    // 🔴 Eliminar cliente por ID
+    @DeleteMapping("/{id}")
+    fun eliminar(@PathVariable id: Long): String =
+        if (service.eliminar(id)) "Cliente eliminado con éxito" else "Cliente no encontrado"
 }
